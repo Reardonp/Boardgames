@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, CameraRoll, ScrollView, Image
 import {Drawer} from 'native-base';
 import{Button, Header} from 'react-native-elements';
 import {StackNavigator} from 'react-navigation';
-//import SecondScreen from './secondscreen';
+//import SecondScreen from './secondscreen';]
 import SideBar from './sidebar';
 
 
@@ -51,8 +51,8 @@ render(){
         <View>
             <Button
             onPress = {()=>
-            this.props.navigation.navigate('Second')}
-            title="Go to second Screen"/>
+            this.props.navigation.navigate('Camera')}
+            title="Go to Barcode Scanner"/>
             <TouchableOpacity onPress={this.openDrawer}>
             <Image
             style = {styles.pushButton}

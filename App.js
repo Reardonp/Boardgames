@@ -13,11 +13,12 @@ import {
 } from 'react-native';
 import {StackNavigator} from 'react-navigation';
 import HomeScreen from './screens/HomeScreen';
+import CameraScreen from './screens/camera';
 
 
 const AppNavigator = StackNavigator({
   Home: {screen: HomeScreen},
-  //Second: {screen: SecondScreen},
+  Camera: {screen: CameraScreen},
 });
 export default class App extends React.Component {
   render(){
