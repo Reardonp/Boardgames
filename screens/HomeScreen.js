@@ -19,7 +19,7 @@ export default class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrayOfShit: ['assblood']
+            arrayOfShit: []
         }
     }
 //        xmljs(){
@@ -33,9 +33,9 @@ export default class HomeScreen extends Component {
       //.then(response => response.text())
     xmljs(){
     let arrayOfShit = this.arrayOfShit;
-    console.log('hodor');
-        var parseString = require('react-native-xml2js').parseString;
-        fetch('https://www.boardgamegeek.com/xmlapi/search?search=avalon')
+
+        let parseString = require('react-native-xml2js').parseString;
+        fetch('https://www.boardgamegeek.com/xmlapi/search?search=avalon&exact=1')
         .then(response => response.text())
         .then((response) => {
             parseString(response, function (err, result) {
@@ -43,17 +43,15 @@ export default class HomeScreen extends Component {
                 let tempShit =[];
                 result.boardgames.boardgame.forEach(function(boardgame, index){
                 let boardgamesObj = result.boardgames;
-                //alert(boardgamesObj.boardgame[index].name[0]._ + " " + boardgamesObj.boardgame[index].$.objectid + " " + boardgamesObj.boardgame[index].yearpublished[0]);
+
                 let tempObj = {
                         name: boardgamesObj.boardgame[index].name[0]._,
                         objID: boardgamesObj.boardgame[index].$.objectid,
                         year: boardgamesObj.boardgame[index].yearpublished[0]
                          };
 
-                //alert(tempObj + " wut tempobj");
-
                 tempShit.push(tempObj);
-                console.log(tempShit[index].name + " wuttempshit" + index);//gave me avalon which is good
+
                 //this.arrayOfShit.push(tempObj[index].name + "arrayOfShit");
 
                 //alert(this.state.arrayOfShit[0].name);
@@ -61,14 +59,18 @@ export default class HomeScreen extends Component {
                 //alert(boardgame.$.objectid);
                 //alert(arrayOfShit[0].objectid);
                 });
-                console.log(tempShit[0].name);
-                return(
-                <View><Text>GOODBYE WORLD RIP I HATE EVERYHTING</Text></View>
-                );
+
+                /*
+                * we want to be able to pass around tempshit array by updating our arrayOfShit to tempshit after its loaded
+                * however, this currently doesnt work
+                * */
+                console.log(tempShit);
+                this.setState({ arrayOfShit: tempShit});
+                console.log(this.arrayOfShit);
                 });
 
         }).catch((err) => {
-            console.log('fetch', err)
+            console.log('fetch', err);
             alert('goodbye '+ err)
         })
     };
