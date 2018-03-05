@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, CameraRoll, ScrollView, ImageBackground, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, CameraRoll, ScrollView, ImageBackground, Image, TextInput, ListView, FlatList } from 'react-native';
 import {Drawer} from 'native-base';
 import{Button, Header} from 'react-native-elements';
 import {StackNavigator} from 'react-navigation';
@@ -18,8 +18,13 @@ export default class HomeScreen extends Component {
 
     constructor(props) {
         super(props);
+        this.xmljs =this.xmljs.bind(this);
+        this.xmljs2 = this.xmljs2.bind(this);
         this.state = {
-            arrayOfShit: ['assblood']
+            arrayOfShit: [],
+            searchField: 'Avalon',
+            results: 'Results go here',
+            
         }
     }
 //        xmljs(){
@@ -31,49 +36,79 @@ export default class HomeScreen extends Component {
 //        };
       //XML stuff. We are not currently using this.
       //.then(response => response.text())
-    xmljs(){
-    let arrayOfShit = this.arrayOfShit;
+    xmljs = () =>{
+      //this.state.arrayOfShit;
+      //searchField = this.state.searchField      
+      //alert(this.state.searchField);
     console.log('hodor');
+    let tempShit = [];
+
+    console.log(this.state.results);
+    console.log(this.state.arrayOfShit);
+    // this.setState({
+    //   arrayOfShit: tempShit
+    // })
         var parseString = require('react-native-xml2js').parseString;
-        fetch('https://www.boardgamegeek.com/xmlapi/search?search=avalon')
+        fetch('https://www.boardgamegeek.com/xmlapi/search?search='+this.state.searchField)
         .then(response => response.text())
         .then((response) => {
             parseString(response, function (err, result) {
                 //console.log(result)
-                let tempShit =[];
+                
                 result.boardgames.boardgame.forEach(function(boardgame, index){
                 let boardgamesObj = result.boardgames;
                 //alert(boardgamesObj.boardgame[index].name[0]._ + " " + boardgamesObj.boardgame[index].$.objectid + " " + boardgamesObj.boardgame[index].yearpublished[0]);
                 let tempObj = {
                         name: boardgamesObj.boardgame[index].name[0]._,
                         objID: boardgamesObj.boardgame[index].$.objectid,
-                        year: boardgamesObj.boardgame[index].yearpublished[0]
+                        //year: boardgamesObj.boardgame[index].yearpublished[0]
                          };
 
                 //alert(tempObj + " wut tempobj");
-
+                 
                 tempShit.push(tempObj);
-                console.log(tempShit[index].name + " wuttempshit" + index);//gave me avalon which is good
+                //console.log(tempShit[index].name + " wuttempshit" + index);//gave me avalon which is good
                 //this.arrayOfShit.push(tempObj[index].name + "arrayOfShit");
-
+                //return tempShit;
                 //alert(this.state.arrayOfShit[0].name);
                 //alert(this.arrayOfShit[0].objID);
                 //alert(boardgame.$.objectid);
                 //alert(arrayOfShit[0].objectid);
                 });
-                console.log(tempShit[0].name);
-                return(
-                <View><Text>GOODBYE WORLD RIP I HATE EVERYHTING</Text></View>
-                );
-                });
+                tempShit.forEach(function(item,index){
+                  console.log(tempShit[index].name.toString());
 
+                arrayOfShit = tempShit;
+                
+                  //this.state.results += tempShit[index].name.toString();
+                }); 
+                //alert(tempShit[0].name);
+                //alert(arrayOfShit[2].name);    
+                // tempShit.forEach(function(item,index){
+                //   alert([index].name)
+                //   this.state.results += tempShit[index].name;
+                // })            
+                });
+                console.log(arrayOfShit);
+                this.setState({
+                  arrayOfShit: arrayOfShit
+                })
         }).catch((err) => {
             console.log('fetch', err)
             alert('goodbye '+ err)
         })
+        //this.setState(arrayOfShit = tempShit);
+        
     };
-    xmljs2(){
-        console.log(arrayOfShit[0].objectid)
+    renderResults(){ 
+      return(    
+          <Text>Hello World</Text>
+      )
+    }
+    
+
+    xmljs2= ()=>{
+        console.log(this.state.arrayOfShit[0].objID)
     };
     static navigationOptions = {
         
@@ -90,6 +125,8 @@ export default class HomeScreen extends Component {
     
 render(){
     //var{navigate}= this.props.navigation;
+    //let arrayOfShit = this.state.arrayOfShit;
+    
 
     return(
         <Drawer
@@ -113,24 +150,31 @@ render(){
       }}
       />
         <View>
-            <Button
-            onPress = {()=>
-            this.props.navigation.navigate('Camera')}
-            title="Go to Barcode Scanner"/>
+           <TextInput 
+            style = {{color: "white"}}
+            onChangeText={(searchField) => this.setState({searchField})}
+            value={this.state.searchField}/>
             <TouchableOpacity onPress={this.xmljs}>
             <Image
             style = {styles.pushButton}
             source={require('../images/push_button.png')}
             />
             </TouchableOpacity>
+
             <TouchableOpacity onPress={this.xmljs2}>
                         <Image
                         style = {styles.pushButton}
                         source={require('../images/push_button.png')}
                         />
                         </TouchableOpacity>
-            <Text>Hello World</Text>
+            <Text style = {{color: "white"}}>{this.state.results}</Text>
+            <Button
+            onPress = {()=>
+            this.props.navigation.navigate('Camera')}
+            title="Go to Barcode Scanner"/>
+            {this.context.renderResults}
         </View>
+        
         </ImageBackground>
         </Drawer>
 
