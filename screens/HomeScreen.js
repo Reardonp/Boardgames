@@ -3,8 +3,12 @@ import { StyleSheet, Text, View, TouchableOpacity, CameraRoll, ScrollView, Image
 import {Drawer} from 'native-base';
 import{Button, Header} from 'react-native-elements';
 import {StackNavigator} from 'react-navigation';
-//import SecondScreen from './secondscreen';]
+//import {parseString} from 'react-native-xml2js';
+//import SecondScreen from './secondscreen';
 import SideBar from './sidebar';
+
+
+
 
 
 /*const AppNavigator = StackNavigator({
@@ -12,6 +16,65 @@ import SideBar from './sidebar';
   });*/
 export default class HomeScreen extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            arrayOfShit: ['assblood']
+        }
+    }
+//        xmljs(){
+//        fetch('https://www.boardgamegeek.com/xmlapi/search?search=catan&exact=1').then((response)=>{
+//        Xml2Json.toJson(response, data => {
+//            console.log("Data = ", data);
+//        })
+//        });
+//        };
+      //XML stuff. We are not currently using this.
+      //.then(response => response.text())
+    xmljs(){
+    let arrayOfShit = this.arrayOfShit;
+    console.log('hodor');
+        var parseString = require('react-native-xml2js').parseString;
+        fetch('https://www.boardgamegeek.com/xmlapi/search?search=avalon')
+        .then(response => response.text())
+        .then((response) => {
+            parseString(response, function (err, result) {
+                //console.log(result)
+                let tempShit =[];
+                result.boardgames.boardgame.forEach(function(boardgame, index){
+                let boardgamesObj = result.boardgames;
+                //alert(boardgamesObj.boardgame[index].name[0]._ + " " + boardgamesObj.boardgame[index].$.objectid + " " + boardgamesObj.boardgame[index].yearpublished[0]);
+                let tempObj = {
+                        name: boardgamesObj.boardgame[index].name[0]._,
+                        objID: boardgamesObj.boardgame[index].$.objectid,
+                        year: boardgamesObj.boardgame[index].yearpublished[0]
+                         };
+
+                //alert(tempObj + " wut tempobj");
+
+                tempShit.push(tempObj);
+                console.log(tempShit[index].name + " wuttempshit" + index);//gave me avalon which is good
+                //this.arrayOfShit.push(tempObj[index].name + "arrayOfShit");
+
+                //alert(this.state.arrayOfShit[0].name);
+                //alert(this.arrayOfShit[0].objID);
+                //alert(boardgame.$.objectid);
+                //alert(arrayOfShit[0].objectid);
+                });
+                console.log(tempShit[0].name);
+                return(
+                <View><Text>GOODBYE WORLD RIP I HATE EVERYHTING</Text></View>
+                );
+                });
+
+        }).catch((err) => {
+            console.log('fetch', err)
+            alert('goodbye '+ err)
+        })
+    };
+    xmljs2(){
+        console.log(arrayOfShit[0].objectid)
+    };
     static navigationOptions = {
         
             header: null,
@@ -22,7 +85,8 @@ export default class HomeScreen extends Component {
       };
       openDrawer = () => {
         this.drawer._root.open()
-      }
+      };
+
     
 render(){
     //var{navigate}= this.props.navigation;
@@ -32,7 +96,7 @@ render(){
         ref={(ref) => { this.drawer = ref; }}
         content={<SideBar navigator={this.navigator} />}
         onClose={() => this.closeDrawer()} >
-        <ImageBackground source={require('../images/bg.jpg')} style={styles.containerBG}>
+       <ImageBackground source={require('../images/bg.jpg')} style={styles.containerBG}>
         <Header 
         backgroundColor='rgba(0, 190, 250, 0.20)'
         leftComponent={{
@@ -53,12 +117,18 @@ render(){
             onPress = {()=>
             this.props.navigation.navigate('Camera')}
             title="Go to Barcode Scanner"/>
-            <TouchableOpacity onPress={this.openDrawer}>
+            <TouchableOpacity onPress={this.xmljs}>
             <Image
             style = {styles.pushButton}
             source={require('../images/push_button.png')}
             />
             </TouchableOpacity>
+            <TouchableOpacity onPress={this.xmljs2}>
+                        <Image
+                        style = {styles.pushButton}
+                        source={require('../images/push_button.png')}
+                        />
+                        </TouchableOpacity>
             <Text>Hello World</Text>
         </View>
         </ImageBackground>
