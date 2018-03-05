@@ -41,7 +41,7 @@ export default class HomeScreen extends Component {
       //searchField = this.state.searchField      
       //alert(this.state.searchField);
     console.log('hodor');
-    let tempShit = [];
+    let tempShit = new Array();
 
     console.log(this.state.results);
     console.log(this.state.arrayOfShit);
@@ -52,7 +52,7 @@ export default class HomeScreen extends Component {
         fetch('https://www.boardgamegeek.com/xmlapi/search?search='+this.state.searchField)
         .then(response => response.text())
         .then((response) => {
-            parseString(response, function (err, result) {
+            parseString(response, (err, result) => {
                 //console.log(result)
                 
                 result.boardgames.boardgame.forEach(function(boardgame, index){
@@ -133,7 +133,7 @@ render(){
         ref={(ref) => { this.drawer = ref; }}
         content={<SideBar navigator={this.navigator} />}
         onClose={() => this.closeDrawer()} >
-       <ImageBackground source={require('../images/bg.jpg')} style={styles.containerBG}>
+       <ImageBackground source={require('../images/background.jpg')} style={styles.containerBG}>
         <Header 
         backgroundColor='rgba(0, 190, 250, 0.20)'
         leftComponent={{
@@ -154,7 +154,7 @@ render(){
             style = {{color: "white"}}
             onChangeText={(searchField) => this.setState({searchField})}
             value={this.state.searchField}/>
-            <TouchableOpacity onPress={this.xmljs}>
+            <TouchableOpacity onPress={this.xmljs.bind(this)}>
             <Image
             style = {styles.pushButton}
             source={require('../images/push_button.png')}
