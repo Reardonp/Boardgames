@@ -57,7 +57,7 @@ export default class HomeScreen extends Component {
                 
                 result.boardgames.boardgame.forEach(function(boardgame, index){
                 let boardgamesObj = result.boardgames;
-                //alert(boardgamesObj.boardgame[index].name[0]._ + " " + boardgamesObj.boardgame[index].$.objectid + " " + boardgamesObj.boardgame[index].yearpublished[0]);
+
                 let tempObj = {
                         name: boardgamesObj.boardgame[index].name[0]._,
                         objID: boardgamesObj.boardgame[index].$.objectid,
@@ -94,7 +94,7 @@ export default class HomeScreen extends Component {
                   arrayOfShit: arrayOfShit
                 })
         }).catch((err) => {
-            console.log('fetch', err)
+            console.log('fetch', err);
             alert('goodbye '+ err)
         })
         //this.setState(arrayOfShit = tempShit);
