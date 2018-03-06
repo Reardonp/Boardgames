@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, CameraRoll, ScrollView, ImageBackground, Image, TextInput, List, ListView, FlatList } from 'react-native';
-import { Drawer } from 'native-base';
-import { Button, Header } from 'react-native-elements';
-import { StackNavigator } from 'react-navigation';
+import { Drawer, Header, Icon, Left, Right, Badge, Body, Container, Title} from 'native-base';
+import { Button } from 'react-native-elements';
+import { DrawerNavigator } from 'react-navigation';
 //import {parseString} from 'react-native-xml2js';
 //import SecondScreen from './secondscreen';
 import SideBar from './sidebar';
@@ -13,6 +13,7 @@ export default class HomeScreen extends Component {
 
   constructor(props) {
     super(props);
+    console.log(props + "from homescreen")
     this.xmljs = this.xmljs.bind(this);
     this.xmljs2 = this.xmljs2.bind(this);
     this.state = {
@@ -22,15 +23,6 @@ export default class HomeScreen extends Component {
 
     }
   }
-  //        xmljs(){
-  //        fetch('https://www.boardgamegeek.com/xmlapi/search?search=catan&exact=1').then((response)=>{
-  //        Xml2Json.toJson(response, data => {
-  //            console.log("Data = ", data);
-  //        })
-  //        });
-  //        };
-  //XML stuff. We are not currently using this.
-  //.then(response => response.text())
   xmljs = () => {
     //this.state.arrayOfShit;
     //searchField = this.state.searchField      
@@ -109,9 +101,7 @@ export default class HomeScreen extends Component {
 
   };
   renderResults() {
-    return (
-      <Text>Hello World</Text>
-    )
+    return <Text>Hello World</Text>;    
   }
 
 
@@ -119,15 +109,15 @@ export default class HomeScreen extends Component {
     console.log(this.state.arrayOfShit[0].objID)
   };
   static navigationOptions = {
-
     header: null,
-
+    contentComponent: props => <Sidebar {...props} />
   };
   closeDrawer = () => {
     this.drawer._root.close()
   };
-  openDrawer = () => {
+  openDrawer= () =>{
     this.drawer._root.open()
+    console.log('drawer open')
   };
 
   renderItem({item, index}) {
@@ -141,26 +131,21 @@ export default class HomeScreen extends Component {
 
 
     return (
-      <Drawer
-        ref={(ref) => { this.drawer = ref; }}
-        content={<SideBar navigator={this.navigator} />}
-        onClose={() => this.closeDrawer()} >
+    <Container>
         <ImageBackground source={require('../images/background.jpg')} style={styles.containerBG}>
-          <Header
-            backgroundColor='rgba(000, 000, 000, 0.60)'
-            leftComponent={{
-              icon: "menu",
-              color: '#fff',
-              onPress: () => this.openDrawer.bind(this),
-            }}
-            centerComponent={{
-              text: 'I have no better title',
-
-              style: {
-                color: 'white',
-              }
-            }}
-          />
+          <Header>
+          <Left>
+            <Button
+              transparent
+              onPress={() => this.props.navigation.navigate("DrawerOpen")}>
+              <Icon name="menu" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>HomeScreen</Title>
+          </Body>
+          <Right />
+        </Header>
           <View>
             <TextInput
               style={{ color: "white" }}
@@ -190,12 +175,12 @@ export default class HomeScreen extends Component {
               renderItem={this.renderItem}
               keyExtractor={(item, index) => index}
             />
-
+              
           </View>
 
         </ImageBackground>
 
-      </Drawer>
+      </Container>
 
 
     );

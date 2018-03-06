@@ -16,7 +16,14 @@ export default class CameraScreen extends Component {
         }
     }
 
-    onBarCodeRead = (e) => this.setState({qrcode: e.data});
+    onBarCodeRead = (e) => {
+        fetch('https://api.upcitemdb.com/prod/trial/lookup?upc='+e.data).then(response => 
+        {
+        console.log(response);
+        });
+        console.log('success ' + e.data),    
+        this.setState({qrcode: e.data})
+};
 
     render () {
         return (

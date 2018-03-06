@@ -5,6 +5,8 @@ import { Container, Content, Text, List, ListItem } from "native-base";
 //import Camera from 'react-native-camera';
 //import Movies from './readjson';
 import { StackNavigator } from 'react-navigation';
+//import { HomeScreen} from './HomeScreen';
+// import { CameraScreen } from './camera';
 import {
   Icon,
   Left,
@@ -13,10 +15,12 @@ import {
 } from "native-base";
 
 const routes = ["Home", "Camera"];
+
 export default class SideBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    console.log(props + "sidebar")
+        this.state = {
       shadowOffsetWidth: 1,
       shadowRadius: 4
     };
@@ -24,7 +28,6 @@ export default class SideBar extends Component {
   static navigationOptions = {
 
     header: null,
-
   };
 
   render() {
