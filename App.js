@@ -14,12 +14,18 @@ import {
 import {StackNavigator} from 'react-navigation';
 import HomeScreen from './screens/HomeScreen';
 import CameraScreen from './screens/camera';
+import Sidebar from './screens/sidebar'
 
 
 const AppNavigator = StackNavigator({
   Home: {screen: HomeScreen},
-  Camera: {screen: CameraScreen},
-});
+  Camera: {screen: CameraScreen}
+  //Sidebar: {screen: Sidebar}
+},
+{
+  contentComponent: props => <Sidebar {...props} />
+}
+);
 export default class App extends React.Component {
   render(){
     return(
