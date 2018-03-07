@@ -6,6 +6,7 @@ import { DrawerNavigator } from 'react-navigation';
 //import {parseString} from 'react-native-xml2js';
 //import SecondScreen from './secondscreen';
 import SideBar from './sidebar';
+import {returnSomething} from '../utils/helpers'
 /*const AppNavigator = StackNavigator({
     Second: {screen: SecondScreen},
   });*/
@@ -15,7 +16,8 @@ export default class HomeScreen extends Component {
     super(props);
     console.log(props + "from homescreen")
     this.xmljs = this.xmljs.bind(this);
-    this.xmljs2 = this.xmljs2.bind(this);
+    //this.xmljs2 = this.xmljs2.bind(this);
+    
     this.state = {
       arrayOfShit: [],
       searchField: 'Avalon',
@@ -24,6 +26,7 @@ export default class HomeScreen extends Component {
     }
   }
   xmljs = () => {
+    
     //this.state.arrayOfShit;
     //searchField = this.state.searchField      
     //alert(this.state.searchField);
@@ -106,7 +109,15 @@ export default class HomeScreen extends Component {
 
 
   xmljs2 = () => {
-    console.log(this.state.arrayOfShit[0].objID)
+    //console.log(this.state.arrayOfShit[0].objID)
+    returnSomething(this.state.searchField).then(response =>{
+      console.log(response + "114 " + state)
+    this.setState({
+      arrayOfShit: response
+    });
+    //console.log(this.state.arrayOfShit);
+  })
+    //console.log(returnSomething(this.state.searchField));    
   };
   static navigationOptions = {
     header: null,
