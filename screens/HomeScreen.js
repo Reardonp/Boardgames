@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, CameraRoll, ScrollView, ImageBackground, Image, TextInput, List, ListView, FlatList } from 'react-native';
-import { Drawer, Header, Icon, Left, Right, Badge, Body, Container, Title} from 'native-base';
+import { Drawer, Header, Icon, Left, Right, Badge, Body, Container, Title } from 'native-base';
 import { Button } from 'react-native-elements';
 import { DrawerNavigator } from 'react-navigation';
 //import {parseString} from 'react-native-xml2js';
 //import SecondScreen from './secondscreen';
 import SideBar from './sidebar';
-import {returnSomething} from '../utils/helpers'
+import { returnSomething } from '../utils/helpers'
 /*const AppNavigator = StackNavigator({
     Second: {screen: SecondScreen},
   });*/
@@ -14,10 +14,10 @@ export default class HomeScreen extends Component {
 
   constructor(props) {
     super(props);
-    console.log(props + "from homescreen")
+    //console.log(props + "from homescreen")
     this.xmljs = this.xmljs.bind(this);
     //this.xmljs2 = this.xmljs2.bind(this);
-    
+
     this.state = {
       arrayOfShit: [],
       searchField: 'Avalon',
@@ -26,7 +26,7 @@ export default class HomeScreen extends Component {
     }
   }
   xmljs = () => {
-    
+
     //this.state.arrayOfShit;
     //searchField = this.state.searchField      
     //alert(this.state.searchField);
@@ -49,26 +49,27 @@ export default class HomeScreen extends Component {
             let boardgamesObj = result.boardgames;
             let tempObj;
             console.log("at line 60" + boardgamesObj.boardgame[index].name[0]._);
-            if(boardgamesObj.boardgame[index].name[0]._ != null) {
-            tempObj = {
-              name: boardgamesObj.boardgame[index].name[0]._,
-              objID: boardgamesObj.boardgame[index].$.objectid,
-              //year: boardgamesObj.boardgame[index].yearpublished[0]
-            };
-          } else {
-            tempObj = {
-              name: boardgamesObj.boardgame[index].name,
-              objID: boardgamesObj.boardgame[index].$.objectid,
-              //year: boardgamesObj.boardgame[index].yearpublished[0]
-            };
-          }
+            if (boardgamesObj.boardgame[index].name[0]._ != null) {
+              tempObj = {
+                name: boardgamesObj.boardgame[index].name[0]._,
+                objID: boardgamesObj.boardgame[index].$.objectid,
+                //year: boardgamesObj.boardgame[index].yearpublished[0]
+              };
+            } else {
+              tempObj = {
+                name: boardgamesObj.boardgame[index].name,
+                objID: boardgamesObj.boardgame[index].$.objectid,
+                //year: boardgamesObj.boardgame[index].yearpublished[0]
+              };
+            }
 
             //alert(tempObj + " wut tempobj");
-            if(tempObj != null){
-            tempShit.push(tempObj);
-            }else{console.log(tempObj + " fail")
-          };
-            
+            if (tempObj != null) {
+              tempShit.push(tempObj);
+            } else {
+              console.log(tempObj + " fail")
+            };
+
             //console.log(tempShit[index].name + " wuttempshit" + index);//gave me avalon which is good
             //this.arrayOfShit.push(tempObj[index].name + "arrayOfShit");
             //return tempShit;
@@ -77,7 +78,7 @@ export default class HomeScreen extends Component {
             //alert(boardgame.$.objectid);
             //alert(arrayOfShit[0].objectid);
           });
-          
+
           tempShit.forEach(function (item, index) {
             console.log(tempShit[index].name);
 
@@ -104,19 +105,17 @@ export default class HomeScreen extends Component {
 
   };
   renderResults() {
-    return <Text>Hello World</Text>;    
+    return <Text>Hello World</Text>;
   }
-
-
   xmljs2 = () => {
     //console.log(this.state.arrayOfShit[0].objID)
-    returnSomething(this.state.searchField).then(response =>{
-      console.log(response + "114 " + state)
-    this.setState({
-      arrayOfShit: response
-    });
-    //console.log(this.state.arrayOfShit);
-  })
+    returnSomething(this.state.searchField).then(response => {
+      //console.log(response + "114 ")
+      this.setState({
+        arrayOfShit: response
+      });
+      console.log(this.state.arrayOfShit);
+    })
     //console.log(returnSomething(this.state.searchField));    
   };
   static navigationOptions = {
@@ -126,13 +125,13 @@ export default class HomeScreen extends Component {
   closeDrawer = () => {
     this.drawer._root.close()
   };
-  openDrawer= () =>{
+  openDrawer = () => {
     this.drawer._root.open()
     console.log('drawer open')
   };
 
-  renderItem({item, index}) {
-    console.log(item + index + " work pls")
+  renderItem({ item, index }) {
+    //console.log(item + index + " work pls")
     return <Text style={{ color: "white" }}>{item.name}</Text>;
   }
 
@@ -142,37 +141,37 @@ export default class HomeScreen extends Component {
 
 
     return (
-    <Container>
+      <Container>
         <ImageBackground source={require('../images/background.jpg')} style={styles.containerBG}>
           <Header>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.navigate("DrawerOpen")}>
-              <Icon name="menu" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>HomeScreen</Title>
-          </Body>
-          <Right />
-        </Header>
+            <Left style={{ flex: 1 }}>
+              <Button
+                transparent
+                onPress={() => this.props.navigation.navigate("DrawerOpen")}>
+                <Icon name="menu" />
+              </Button>
+            </Left>
+            <Body style={{ flex: 1 }}>
+              <Title style={{textAlign: 'center'}}>Main Screen</Title>
+            </Body>
+            <Right style={{ flex: 1 }}></Right>
+          </Header>
           <View>
             <TextInput
               style={{ color: "white" }}
               onChangeText={(searchField) => this.setState({ searchField })}
               value={this.state.searchField} />
-              <Button onPress={() =>
-            this.props.navigation.navigate('Camera')}
-          title="Go to Barcode Scanner" />
+            <Button onPress={() =>
+              this.props.navigation.navigate('Camera')}
+              title="Go to Barcode Scanner" />
             <TouchableOpacity onPress={this.xmljs.bind(this)}>
               <Image
                 style={styles.pushButton}
                 source={require('../images/push_button.png')}
               />
             </TouchableOpacity>
-            
- 
+
+
             <TouchableOpacity onPress={this.xmljs2}>
               <Image
                 style={styles.pushButton}
@@ -181,12 +180,12 @@ export default class HomeScreen extends Component {
             </TouchableOpacity>
             <Text style={{ color: "white" }}>{this.state.results}</Text>
 
-            <FlatList style={{backgroundColor: "gray"}}
+            <FlatList style={{ backgroundColor: "gray" }}
               data={this.state.arrayOfShit}
               renderItem={this.renderItem}
               keyExtractor={(item, index) => index}
             />
-              
+
           </View>
 
         </ImageBackground>
