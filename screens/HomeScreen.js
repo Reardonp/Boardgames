@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, CameraRoll, ScrollView, ImageBackground, Image, TextInput, List, ListView, FlatList } from 'react-native';
-import { Drawer, Header, Icon, Left, Right, Badge, Body, Container, Title } from 'native-base';
-import { Button } from 'react-native-elements';
+import { Drawer, Header, Left, Right, Badge, Body, Container, Title, Icon, Button } from 'native-base';
+//import { Button } from 'react-native-elements';
 import { DrawerNavigator } from 'react-navigation';
 //import {parseString} from 'react-native-xml2js';
 //import SecondScreen from './secondscreen';
@@ -148,7 +148,7 @@ export default class HomeScreen extends Component {
               <Button
                 transparent
                 onPress={() => this.props.navigation.navigate("DrawerOpen")}>
-                <Icon name="menu" />
+                <Icon name='menu' />
               </Button>
             </Left>
             <Body style={{ flex: 1 }}>
@@ -161,9 +161,11 @@ export default class HomeScreen extends Component {
               style={{ color: "white" }}
               onChangeText={(searchField) => this.setState({ searchField })}
               value={this.state.searchField} />
-            <Button onPress={() =>
-              this.props.navigation.navigate('Camera')}
-              title="Go to Barcode Scanner" />
+            <Button block iconLeft onPress={() =>
+              this.props.navigation.navigate('Camera')}>
+              <Icon name = "beer"/>
+              <Text>Barcode Scanner</Text>
+              </Button>
             <TouchableOpacity onPress={this.xmljs.bind(this)}>
               <Image
                 style={styles.pushButton}
