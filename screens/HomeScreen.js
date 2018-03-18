@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, CameraRoll, ScrollView, ImageBackground, Image, TextInput, List, ListView, FlatList } from 'react-native';
-import { Drawer, Header, Left, Right, Badge, Body, Container, Title, Icon, Button } from 'native-base';
+import { Drawer, Header, Left, Right, Badge, Container, Title, Icon, Button, Card, CardItem, Body } from 'native-base';
 //import { Button } from 'react-native-elements';
+import GameScreen from './gameScreen';
 import { DrawerNavigator } from 'react-navigation';
 //import {parseString} from 'react-native-xml2js';
 //import SecondScreen from './secondscreen';
 import SideBar from './sidebar';
-import { returnSomething } from '../utils/helpers'
+import { returnSomething, returnDetails } from '../utils/helpers'
 /*const AppNavigator = StackNavigator({
     Second: {screen: SecondScreen},
   });*/
@@ -16,15 +17,26 @@ export default class HomeScreen extends Component {
     super(props);
     //console.log(props + "from homescreen")
     this.xmljs = this.xmljs.bind(this);
+    //this.details = this.details.bind(this);
     //this.xmljs2 = this.xmljs2.bind(this);
 
     this.state = {
       arrayOfShit: [],
       searchField: 'Avalon',
       results: 'Results go here',
+      selectedGame:"",
+      selectedGameArray: [],
 
     }
   }
+  details=()=>{
+    console.log("huh")
+    // returnDetails(params).then(response=> {
+    //   this.setState({
+    //   selectedGameArray: response
+    //   });
+    // })
+  };
   xmljs = () => {
 
     //this.state.arrayOfShit;
@@ -109,6 +121,7 @@ export default class HomeScreen extends Component {
   }
   xmljs2 = () => {
     //console.log(this.state.arrayOfShit[0].objID)
+    console.log("from xmljs2")
     returnSomething(this.state.searchField).then(response => {
       //console.log(response + "114 ")
       this.setState({
@@ -132,7 +145,13 @@ export default class HomeScreen extends Component {
 
   renderItem({ item, index }) {
     //console.log(item + index + " work pls")
-    return <Text style={{ color: "white" }}>{item.name}</Text>;
+    return <Card>
+      <CardItem button onPress={()=>this.props.navigation.navigate("GameScreen")}>  
+        <Body>     
+      <Text style={{ color: "black" }}>{item.name} ID:{item.objID}</Text>
+      </Body>
+      </CardItem>     
+      </Card>;
   }
 
   render() {
@@ -158,22 +177,22 @@ export default class HomeScreen extends Component {
           </Header>
           <View>
             <TextInput
-              style={{ color: "white" }}
+              style={{ color: "white", }}
+              inlineImageLeft="search"
               onChangeText={(searchField) => this.setState({ searchField })}
-              value={this.state.searchField} />
-            <Button block iconLeft onPress={() =>
+              placeholder={"Avalon"}
+              plcaeholderTextColor="#ffffff"/>
+            {/* <Button block iconLeft onPress={() =>
               this.props.navigation.navigate('Camera')}>
               <Icon name = "beer"/>
               <Text>Barcode Scanner</Text>
-              </Button>
-            <TouchableOpacity onPress={this.xmljs.bind(this)}>
+              </Button> */}
+            {/* <TouchableOpacity onPress={this.xmljs.bind(this)}>
               <Image
                 style={styles.pushButton}
                 source={require('../images/push_button.png')}
               />
-            </TouchableOpacity>
-
-
+            </TouchableOpacity> */}
             <TouchableOpacity onPress={this.xmljs2}>
               <Image
                 style={styles.pushButton}
@@ -181,20 +200,14 @@ export default class HomeScreen extends Component {
               />
             </TouchableOpacity>
             <Text style={{ color: "white" }}>{this.state.results}</Text>
-
-            <FlatList style={{ backgroundColor: "gray" }}
+            <FlatList style={{ backgroundColor: "transparent" }}
               data={this.state.arrayOfShit}
               renderItem={this.renderItem}
               keyExtractor={(item, index) => index}
             />
-
           </View>
-
         </ImageBackground>
-
       </Container>
-
-
     );
   }
 }

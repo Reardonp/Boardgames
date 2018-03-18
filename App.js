@@ -14,12 +14,14 @@ import {
 import {DrawerNavigator} from 'react-navigation';
 import HomeScreen from './screens/HomeScreen';
 import CameraScreen from './screens/camera';
+import GameScreen from './screens/gameScreen';
 import Sidebar from './screens/sidebar'
 
 
 const AppNavigator = DrawerNavigator({
   Home: {screen: HomeScreen},
-  Camera: {screen: CameraScreen}
+  Camera: {screen: CameraScreen},
+  GameScreen: {screen: GameScreen}
   //Sidebar: {screen: Sidebar}
 },
 {
