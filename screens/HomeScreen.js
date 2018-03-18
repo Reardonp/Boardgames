@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, CameraRoll, ScrollView, ImageBackground, Image, TextInput, List, ListView, FlatList } from 'react-native';
 import { Drawer, Header, Left, Right, Badge, Container, Title, Icon, Button, Card, CardItem, Body } from 'native-base';
 //import { Button } from 'react-native-elements';
-import GameScreen from './gameScreen';
 import { DrawerNavigator } from 'react-navigation';
 //import {parseString} from 'react-native-xml2js';
 //import SecondScreen from './secondscreen';
@@ -25,8 +24,7 @@ export default class HomeScreen extends Component {
       searchField: 'Avalon',
       results: 'Results go here',
       selectedGame:"",
-      selectedGameArray: [],
-
+      selectedGameArray: []
     }
   }
   details=()=>{
@@ -202,7 +200,7 @@ export default class HomeScreen extends Component {
             <Text style={{ color: "white" }}>{this.state.results}</Text>
             <FlatList style={{ backgroundColor: "transparent" }}
               data={this.state.arrayOfShit}
-              renderItem={this.renderItem}
+              renderItem={this.renderItem.bind(this)}
               keyExtractor={(item, index) => index}
             />
           </View>
