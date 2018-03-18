@@ -144,7 +144,7 @@ export default class HomeScreen extends Component {
   renderItem({ item, index }) {
     //console.log(item + index + " work pls")
     return <Card>
-      <CardItem button onPress={()=>this.props.navigation.navigate("GameScreen")}>  
+      <CardItem button onPress={()=>this.props.navigation.navigate("GameScreen",{idNum: item.objID})}>  
         <Body>     
       <Text style={{ color: "black" }}>{item.name} ID:{item.objID}</Text>
       </Body>

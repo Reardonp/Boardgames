@@ -51,10 +51,13 @@ export async function returnDetails(params) {
                 result.boardgames.boardgame.forEach(function (boardgame, index) {
                     let boardgamesObj = result.boardgames;
                     let tempObj;
+                    console.log(boardgamesObj)
                     if (boardgamesObj.boardgame[index].name[0]._ != null) {
                         tempObj = {
+                            
                             name: boardgamesObj.boardgame[index].name[0]._,
                             objID: boardgamesObj.boardgame[index].$.objectid,
+                            image:boardgamesObj.boardgame[index].image[0],
                         };
                     } else {
                         tempObj = {
