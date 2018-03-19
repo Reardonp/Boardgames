@@ -47,15 +47,15 @@ renderItem({ item, index }) {
         <CardItem>
             <Left>
             <Body>                
-                <Text>{this.state.game[0].name}</Text>
-                <Text>{this.state.game[0].year}</Text>
+                <Text style={{fontSize: 40}}>{this.state.game[0].name}</Text>
+                <Text>Release Year: {this.state.game[0].year}</Text>
             </Body>
             </Left>
             </CardItem>
             <CardItem>
             <Body>
             <Image 
-    style={{width: 200, height: 200, flex:1}}
+    style={{width: 200, height: 200, resizeMode:'contain'}}
     source={{uri: this.state.game[0].image}}
     />
     <Text>{this.state.game[0].description.replace(/<(?:.|\n)*?>/gm, '')}</Text>
