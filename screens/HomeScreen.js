@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, CameraRoll, ScrollView, ImageBackground, Image, TextInput, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, CameraRoll, ScrollView, ImageBackground, Image, TextInput, FlatList, ActivityIndicator } from 'react-native';
 import { Drawer, Header, Left, Right, Badge, Container, Title, Icon, Button, Card, CardItem, Body, List, ListItem } from 'native-base';
 //import { Button } from 'react-native-elements';
 import { DrawerNavigator } from 'react-navigation';
@@ -24,7 +24,8 @@ export default class HomeScreen extends Component {
       searchField: 'Avalon',
       results: 'Results go here',
       selectedGame:"",
-      selectedGameArray: []
+      selectedGameArray: [],
+      isLoading: false,
     }
   }
   details=()=>{
@@ -118,12 +119,16 @@ export default class HomeScreen extends Component {
     return <Text>Hello World</Text>;
   }
   xmljs2 = () => {
-    //console.log(this.state.arrayOfShit[0].objID)
-    console.log("from xmljs2")
+      this.setState({
+          isLoading: true,
+      });
+      //console.log(this.state.arrayOfShit[0].objID)
+    console.log("from xmljs2");
     returnSomething(this.state.searchField).then(response => {
       //console.log(response + "114 ")
       this.setState({
-        arrayOfShit: response
+        arrayOfShit: response,
+        isLoading: false,
       });
       console.log(this.state.arrayOfShit);
     })
@@ -201,6 +206,7 @@ export default class HomeScreen extends Component {
               <Icon android='md-search' style={{color:'white'}}/>
               <Text>Search For Games</Text>
             </Button>
+              {this.state.isLoading ? <ActivityIndicator style={{padding: 20}}/> : null}
             {/* <Text style={{ color: "white" }}>{this.state.results}</Text> */}
             <FlatList style={{ backgroundColor: "transparent" }}
               data={this.state.arrayOfShit}
