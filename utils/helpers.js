@@ -51,13 +51,20 @@ export async function returnDetails(params) {
                 result.boardgames.boardgame.forEach(function (boardgame, index) {
                     let boardgamesObj = result.boardgames;
                     let tempObj;
-                    console.log(boardgamesObj)
+                    //console.log(boardgamesObj)
                     if (boardgamesObj.boardgame[index].name[0]._ != null) {
                         tempObj = {
                             
                             name: boardgamesObj.boardgame[index].name[0]._,
                             objID: boardgamesObj.boardgame[index].$.objectid,
                             image:boardgamesObj.boardgame[index].image[0],
+                            thumbnail: boardgamesObj.boardgame[index].thumbnail[0],
+                            description: boardgamesObj.boardgame[index].description[0],
+                            year: boardgamesObj.boardgame[index].yearpublished[0],
+                            maxPlayers: boardgamesObj.boardgame[index].maxplayers[0],
+                            minPlayers: boardgamesObj.boardgame[index].minplayers[0],
+                            playingTime: boardgamesObj.boardgame[index].playingtime[0],
+                            age: boardgamesObj.boardgame[index].age[0]
                         };
                     } else {
                         tempObj = {
