@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, CameraRoll, ScrollView, ImageBackground, Image, TextInput, List, ListView, FlatList } from 'react-native';
-import { Drawer, Header, Left, Right, Badge, Container, Title, Icon, Button, Card, CardItem, Body } from 'native-base';
+import { StyleSheet, Text, View, TouchableOpacity, CameraRoll, ScrollView, ImageBackground, Image, TextInput, FlatList } from 'react-native';
+import { Drawer, Header, Left, Right, Badge, Container, Title, Icon, Button, Card, CardItem, Body, List, ListItem } from 'native-base';
 //import { Button } from 'react-native-elements';
 import { DrawerNavigator } from 'react-navigation';
 //import {parseString} from 'react-native-xml2js';
@@ -143,13 +143,14 @@ export default class HomeScreen extends Component {
 
   renderItem({ item, index }) {
     //console.log(item + index + " work pls")
-    return <Card>
-      <CardItem button onPress={()=>this.props.navigation.navigate("GameScreen",{idNum: item.objID})}>  
-        <Body>     
-      <Text style={{ color: "black" }}>{item.name}</Text>
-      </Body>
-      </CardItem>     
-      </Card>;
+    return <List style={{backgroundColor:'white'}}>
+      <ListItem iconRight button onPress={()=>this.props.navigation.navigate("GameScreen",{idNum: item.objID})}>  
+          
+      <Left><Text style={{ color: "black" }}>{item.name}</Text></Left>
+      <Right><Icon name = 'arrow-dropright'/></Right>
+      
+      </ListItem>     
+      </List>;
   }
 
   render() {
