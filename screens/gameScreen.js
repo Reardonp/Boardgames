@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {  View, Text, FlatList, Image } from 'react-native';
 import { DrawerNavigator } from 'react-navigation';
-import { Drawer, Header, Left, Right, Badge, Container, Title, Icon, Button, Card, CardItem, Body } from 'native-base';
-import { returnSomething, returnDetails } from '../utils/helpers'
+import { Drawer, Header, Left, Right, Badge, Container,Content, Title, Icon, Button, Card, CardItem, Body } from 'native-base';
+import { returnSomething, returnDetails } from '../utils/helpers';
+import { StackNavigator } from 'react-navigation';
+
 
 
 export default class GameScreen extends Component {
@@ -41,24 +43,58 @@ renderItem({ item, index }) {
   renderStuff=()=>{ 
       if(this.state.ready === true){
           console.log(this.state.ready)
-    return <View style={{flex: 1}}><Text>{this.state.game[0].name}</Text>
-    <Image
-    style={{width: 50, height: 50}}
+    return <Card style={{flex: 0}}>
+        <CardItem>
+            <Left>
+            <Body>                
+                <Text>{this.state.game[0].name}</Text>
+                <Text>{this.state.game[0].year}</Text>
+            </Body>
+            </Left>
+            </CardItem>
+            <CardItem>
+            <Body>
+            <Image 
+    style={{width: 200, height: 200, flex:1}}
     source={{uri: this.state.game[0].image}}
     />
-  </View>
-
-    
+    <Text>{this.state.game[0].description.replace(/<(?:.|\n)*?>/gm, '')}</Text>
+            </Body>
+        </CardItem>
+        <CardItem>
+           
+            <Body>
+            <Text>Max Player: {this.state.game[0].maxPlayers}</Text>
+            <Text>Min Players: {this.state.game[0].minPlayers}</Text>
+            <Text>Estimated Playing Time: {this.state.game[0].playingTime}</Text>
+            <Text>Age Range: {this.state.game[0].age}+</Text>
+            </Body>
+      
+        </CardItem>
+    </Card>   
       }     
   };
 
   render() {
    const {idNum} = this.props.navigation.state.params;
     return (
-      <View>
-        <Text onPress={this.test}>{idNum}</Text>        
-        {this.renderStuff()}                
-      </View>
+      <Container>
+          <Header>
+              <Left>
+                  <Button transparent
+                  onPress={()=> this.props.navigation.navigate('Home')}>
+                    <Icon name="arrow-back"/>
+                  </Button>
+              </Left>
+              <Body>
+                  <Title>Game Details</Title>
+              </Body>
+              </Header>
+          <Content>
+          {/* <Text onPress={this.test}>{idNum}</Text>         */}
+        {this.renderStuff()} 
+        </Content>               
+        </Container>
     );
 
   }

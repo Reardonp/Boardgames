@@ -146,7 +146,7 @@ export default class HomeScreen extends Component {
     return <Card>
       <CardItem button onPress={()=>this.props.navigation.navigate("GameScreen",{idNum: item.objID})}>  
         <Body>     
-      <Text style={{ color: "black" }}>{item.name} ID:{item.objID}</Text>
+      <Text style={{ color: "black" }}>{item.name}</Text>
       </Body>
       </CardItem>     
       </Card>;
@@ -168,19 +168,23 @@ export default class HomeScreen extends Component {
                 <Icon name='menu' />
               </Button>
             </Left>
-            <Body style={{ flex: 1 }}>
-              <Title style={{textAlign: 'center'}}>Main Screen</Title>
+            <Body style={{ flex:2 }}>
+              <Title style={{textAlign: 'center'}}>Game Search</Title>
             </Body>
             <Right style={{ flex: 1 }}></Right>
           </Header>
           <View>
+          <View>
             <TextInput
-              style={{ color: "white", }}
+            
+              style={{ color: "white", textAlign: 'center' }}
               inlineImageLeft="search"
               onChangeText={(searchField) => this.setState({ searchField })}
-              placeholder={"Avalon"}
-              plcaeholderTextColor="#ffffff"/>
-            {/* <Button block iconLeft onPress={() =>
+              placeholder={"Enter Game Name"}
+              placeholderTextColor="#ffffff"/>
+
+              </View>
+              {/* <Button block iconLeft onPress={() =>
               this.props.navigation.navigate('Camera')}>
               <Icon name = "beer"/>
               <Text>Barcode Scanner</Text>
@@ -191,13 +195,12 @@ export default class HomeScreen extends Component {
                 source={require('../images/push_button.png')}
               />
             </TouchableOpacity> */}
-            <TouchableOpacity onPress={this.xmljs2}>
-              <Image
-                style={styles.pushButton}
-                source={require('../images/push_button.png')}
-              />
-            </TouchableOpacity>
-            <Text style={{ color: "white" }}>{this.state.results}</Text>
+            <Button full iconLeft light rounded onPress={this.xmljs2}>
+            <Icon name='search'/>
+              <Icon android='md-search' style={{color:'white'}}/>
+              <Text>Search For Games</Text>
+            </Button>
+            {/* <Text style={{ color: "white" }}>{this.state.results}</Text> */}
             <FlatList style={{ backgroundColor: "transparent" }}
               data={this.state.arrayOfShit}
               renderItem={this.renderItem.bind(this)}
