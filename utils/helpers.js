@@ -1,9 +1,9 @@
 export async function returnSomething(params) {
-    console.log('hello from here' + params)
+    console.log('hello from here' + params);
     console.log('hodor');
-    let tempShit = new Array();
-    let arrayOfShit = new Array();
-    var parseString = require('react-native-xml2js').parseString;
+    let tempStuff = new Array();
+    let arrayOfStuff = new Array();
+    let parseString = require('react-native-xml2js').parseString;
     return fetch('https://www.boardgamegeek.com/xmlapi/search?search=' + params)
         .then(response => response.text())
         .then((response) => {
@@ -23,16 +23,16 @@ export async function returnSomething(params) {
                         };
                     }
                     if (tempObj != null) {
-                        tempShit.push(tempObj);
+                        tempStuff.push(tempObj);
                     } else {
                         console.log(tempObj + " fail")
-                    };
+                    }
                 });
-                tempShit.forEach(function (item, index) {
-                    arrayOfShit = tempShit;
+                tempStuff.forEach(function (item, index) {
+                    arrayOfStuff = tempStuff;
                 });
             });
-            return arrayOfShit;
+            return arrayOfStuff;
         }).catch((err) => {
             console.log('fetch', err);
             alert('goodbye ' + err)
@@ -41,9 +41,9 @@ export async function returnSomething(params) {
 export async function returnDetails(params) {
     console.log('hello from here' + params)
     console.log('hodor');
-    let tempShit = new Array();
-    let arrayOfShit = new Array();
-    var parseString = require('react-native-xml2js').parseString;
+    let tempStuff = new Array();
+    let arrayOfStuff = new Array();
+    let parseString = require('react-native-xml2js').parseString;
     return fetch('https://www.boardgamegeek.com/xmlapi/boardgame/' + params)
         .then(response => response.text())
         .then((response) => {
@@ -73,16 +73,16 @@ export async function returnDetails(params) {
                         };
                     }
                     if (tempObj != null) {
-                        tempShit.push(tempObj);
+                        tempStuff.push(tempObj);
                     } else {
                         console.log(tempObj + " fail")
-                    };
+                    }
                 });
-                tempShit.forEach(function (item, index) {
-                    arrayOfShit = tempShit;
+                tempStuff.forEach(function (item, index) {
+                    arrayOfStuff = tempStuff;
                 });
             });
-            return arrayOfShit;
+            return arrayOfStuff;
         }).catch((err) => {
             console.log('fetch', err);
             alert('goodbye ' + err)

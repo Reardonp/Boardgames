@@ -4,17 +4,17 @@ import {  View, Text, } from 'react-native';
 export default class Utils extends Component {
 bggGetResByName = (params) => {
     console.log('hello from Utils class')
-        //this.state.arrayOfShit;
+        //this.state.arrayOfStuff;
     //searchField = this.state.searchField      
     //alert(this.state.searchField);
     console.log('hodor');
-    let tempShit = new Array();
-    let arrayOfShit = new Array();
+    let tempStuff = new Array();
+    let arrayOfStuff = new Array();
     console.log(this.state.searchField)
     console.log(this.state.results);
-    console.log(this.state.arrayOfShit);
+    console.log(this.state.arrayOfStuff);
     // this.setState({
-    //   arrayOfShit: tempShit
+    //   arrayOfStuff: tempStuff
     // })
     var parseString = require('react-native-xml2js').parseString;
     fetch('https://www.boardgamegeek.com/xmlapi/search?search=' + params)
@@ -43,43 +43,43 @@ bggGetResByName = (params) => {
 
             //alert(tempObj + " wut tempobj");
             if(tempObj != null){
-            tempShit.push(tempObj);
+            tempStuff.push(tempObj);
             }else{console.log(tempObj + " fail")
           };
             
-            //console.log(tempShit[index].name + " wuttempshit" + index);//gave me avalon which is good
-            //this.arrayOfShit.push(tempObj[index].name + "arrayOfShit");
-            //return tempShit;
-            //alert(this.state.arrayOfShit[0].name);
-            //alert(this.arrayOfShit[0].objID);
+            //console.log(tempStuff[index].name + " wuttempstuff" + index);//gave me avalon which is good
+            //this.arrayOfStuff.push(tempObj[index].name + "arrayOfStuff");
+            //return tempStuff;
+            //alert(this.state.arrayOfStuff[0].name);
+            //alert(this.arrayOfStuff[0].objID);
             //alert(boardgame.$.objectid);
-            //alert(arrayOfShit[0].objectid);
+            //alert(arrayOfStuff[0].objectid);
           });
           
-          tempShit.forEach(function (item, index) {
-            console.log(tempShit[index].name);
+          tempStuff.forEach(function (item, index) {
+            console.log(tempStuff[index].name);
 
-            arrayOfShit = tempShit;
+            arrayOfStuff = tempStuff;
 
-            //this.state.results += tempShit[index].name.toString();
+            //this.state.results += tempStuff[index].name.toString();
           });
-          //alert(tempShit[0].name);
-          //alert(arrayOfShit[2].name);    
-          // tempShit.forEach(function(item,index){
+          //alert(tempStuff[0].name);
+          //alert(arrayOfStuff[2].name);    
+          // tempStuff.forEach(function(item,index){
           //   alert([index].name)
-          //   this.state.results += tempShit[index].name;
+          //   this.state.results += tempStuff[index].name;
           // })            
         });
-        console.log(arrayOfShit);
+        console.log(arrayOfStuff);
         this.setState({
-          arrayOfShit: arrayOfShit
+          arrayOfStuff: arrayOfStuff
         })
       }).catch((err) => {
         console.log('fetch', err);
         alert('goodbye ' + err)
-      })
-    //this.setState(arrayOfShit = tempShit);
-  return arrayOfShit;
+      });
+    //this.setState(arrayOfStuff = tempStuff);
+  return arrayOfStuff;
 };
 
 bggGetResById = (params) => {

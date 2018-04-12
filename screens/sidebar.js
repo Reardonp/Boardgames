@@ -37,7 +37,7 @@ export default class SideBar extends Component {
       <Content>
         <Text style={styles.drawerText}>Isnt that something</Text>
         <Button
-          onPress={() => alert('Stop Pressing Shit')}
+          onPress={() => alert('test press')}
           title="Press it"
           backgroundColor="darkgray"
           color='white'
